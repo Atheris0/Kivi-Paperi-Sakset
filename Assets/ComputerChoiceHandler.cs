@@ -8,7 +8,6 @@ public class ComputerChoiceHandler : MonoBehaviour
     public Sprite rockSprite;
     public Sprite paperSprite;
     public Sprite scissorsSprite;
-    public Sprite swordSprite;
 
     void Start()
     {

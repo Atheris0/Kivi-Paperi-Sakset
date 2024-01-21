@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum Choice
 {
@@ -14,6 +15,7 @@ public enum Choice
 public class RPSGame : MonoBehaviour
 {
     public Text resultText;
+    public Text guidanceText;
     public Text playerScoreText;
     public Text computerScoreText;
     public Button rockButton;
@@ -30,13 +32,23 @@ public class RPSGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        resultText.text = "Choose Rock, Paper, or Scissors";
+        resultText.text = "Choose Rock, Paper or Scissors";
+        guidanceText.text = ""; // Initialize guidance text to be empty
         playerScoreText.text = "Player: 0";
         computerScoreText.text = "Computer: 0";
 
         rockButton.onClick.AddListener(() => MakeChoice(Choice.Rock));
         paperButton.onClick.AddListener(() => MakeChoice(Choice.Paper));
         scissorsButton.onClick.AddListener(() => MakeChoice(Choice.Scissors));
+    }
+
+    void Update()
+    {
+        // Check for ESC key press to return to the main menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ReturnToMainMenu();
+        }
     }
 
     public void MakeChoice(Choice playerChoice)
@@ -75,6 +87,8 @@ public class RPSGame : MonoBehaviour
         // Check for game end
         if (playerScore == maxScore || computerScore == maxScore)
         {
+            // Set guidance text to inform the player to press ESC to return to the main menu
+            guidanceText.text = "Press ESC to return to the main menu";
             EndGame();
         }
     }
@@ -87,6 +101,11 @@ public class RPSGame : MonoBehaviour
 
     void EndGame()
     {
+        // Disable the Rock, Paper, Scissors buttons
+        rockButton.interactable = false;
+        paperButton.interactable = false;
+        scissorsButton.interactable = false;
+
         if (playerScore == maxScore)
         {
             resultText.text = "You win the game!";
@@ -95,5 +114,11 @@ public class RPSGame : MonoBehaviour
         {
             resultText.text = "You lost the game!";
         }
+    }
+
+    void ReturnToMainMenu()
+    {
+        // Load the main menu scene
+        SceneManager.LoadScene("MainMenu");
     }
 }
