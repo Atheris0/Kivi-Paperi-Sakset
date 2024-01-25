@@ -33,7 +33,7 @@ public class RPSGame : MonoBehaviour
     void Start()
     {
         resultText.text = "Choose Rock, Paper or Scissors";
-        guidanceText.text = ""; // Initialize guidance text to be empty
+        guidanceText.text = "Press ESC to return to the main menu";
         playerScoreText.text = "Player: 0";
         computerScoreText.text = "Computer: 0";
 
@@ -68,17 +68,20 @@ public class RPSGame : MonoBehaviour
         if (player == computer)
         {
             resultText.text = "It's a tie!";
+            guidanceText.text = ""; //Guidance text will be invisible during the game
         }
         else if ((player == Choice.Rock && computer == Choice.Scissors) ||
                  (player == Choice.Paper && computer == Choice.Rock) ||
                  (player == Choice.Scissors && computer == Choice.Paper))
         {
             resultText.text = "You win!";
+            guidanceText.text = "";
             playerScore++;
         }
         else
         {
             resultText.text = "Computer wins!";
+            guidanceText.text = "";
             computerScore++;
         }
 
